@@ -192,7 +192,7 @@ function App() {
 
             }}
           >
-            ₮ {(Number(closingPrice)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            ₮ {(Number(entryPrice)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
           </div>
           <div
             style={{
