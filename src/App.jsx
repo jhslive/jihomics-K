@@ -5,11 +5,7 @@ import bgShort from "./bg_short.png";
 import tanguPic from "./tangu.png";
 import html2canvas from "html2canvas";
 
-function date(){
-    setInterval(new Date, 1000);
-}
 
-date();
 
 function App() {
   const [coin, setCoin] = useState("BTCUSDT");
@@ -26,6 +22,12 @@ function App() {
   const [tangu, setTangu] = useState(false);
 
   var downloadCount = 0;
+    
+    function date(){
+    setInterval(new Date, 1000);
+}
+
+date();
 
   useEffect(() => {
 
