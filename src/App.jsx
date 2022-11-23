@@ -5,11 +5,11 @@ import bgShort from "./bg_short.png";
 import tanguPic from "./tangu.png";
 import html2canvas from "html2canvas";
 
-function init(){
+function date(){
     setInterval(new Date, 1000);
 }
 
-init();
+date();
 
 function App() {
   const [coin, setCoin] = useState("BTCUSDT");
