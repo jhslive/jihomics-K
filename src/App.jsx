@@ -6,7 +6,7 @@ import tanguPic from "./tangu.png";
 import html2canvas from "html2canvas";
 
 function init(){
-    setInterval(getTime, 1000);
+    setInterval(date, 1000);
 }
 
 init();
