@@ -12,14 +12,17 @@ function App() {
   const [isLong, setIsLong] = useState(true);
   const [numsLoc, setNumsLoc] = useState([227, 570, 570]);
   const [numLocLR, setNumLocLR] = useState(1000);
-  const [leverage, setLeverage] = useState(50);
+  const [leverage, setLeverage] = useState("30.00");
   const [date, setdate] = useState(new Date().toLocaleString('en-US', { hour12: false,}));
   const [result, setResult] = useState(
     ((closingPrice / entryPrice - 1) * 75 * 100).toFixed(2)
   );
   const [tangu, setTangu] = useState(false);
 
+  var downloadCount = 0;
+
   useEffect(() => {
+
     const calculated = (
       (closingPrice / entryPrice - 1) *
       leverage *
@@ -30,23 +33,89 @@ function App() {
     } else {
       setResult(calculated);
     }
+
   }, [entryPrice, closingPrice, coin, isLong, leverage]);
 
-  function downLoad() {
-    console.log("download started!");
-    const name =
-      (isLong ? "Long-" : "Short-") +
-      coin +
-      "-" +
-      entryPrice +
-      "-" +
-      closingPrice;
-
+  function imageDownload(name)
+  {
     const image = document.getElementById("image");
     html2canvas(image).then((canvas) => {
       onSaveAs(canvas.toDataURL("image/png"), name + ".png");
     });
   }
+
+  function downLoadEntryPrice() {
+    downloadCount = 10;
+    const interval = setInterval(() => {
+      downloadCount--;
+      
+      var entryPriceCount = (Number(entryPrice)+(downloadCount*0.1)).toFixed(1);
+      var entryPriceFilename ;
+      if(downloadCount===9)
+      {
+        entryPriceFilename = entryPrice       
+      }
+      else
+      {
+        entryPriceFilename = (Number(entryPrice)+((downloadCount+1)*0.1)).toFixed(1);
+      }
+
+      const name =
+          (isLong ? "Long-" : "Short-") +
+          coin +
+          "-" +
+          entryPriceFilename +
+          "-" +
+          closingPrice;
+
+      console.log("downloadCount = " + downloadCount);
+      imageDownload(name);
+      setEntryPrice(entryPriceCount);
+
+      if(downloadCount===0)      
+      {
+        clearInterval(interval);    
+        setEntryPrice(entryPrice);
+      }
+    }, 1000);    
+  }
+
+  function downLoadClosingPrice() {
+    downloadCount = 10;
+    const interval = setInterval(() => {
+      downloadCount--;
+      
+      var closingPriceCount = (Number(closingPrice)+(downloadCount*0.1)).toFixed(1);
+      var closingPriceFilename ;
+      if(downloadCount===9)
+      {
+        closingPriceFilename = closingPrice       
+      }
+      else
+      {
+        closingPriceFilename = (Number(closingPrice)+((downloadCount+1)*0.1)).toFixed(1);
+      }
+
+      const name =
+          (isLong ? "Long-" : "Short-") +
+          coin +
+          "-" +
+          entryPrice +
+          "-" +
+          closingPriceFilename;
+
+      console.log("downloadCount = " + downloadCount);
+      imageDownload(name);
+      setClosingPrice(closingPriceCount);
+
+      if(downloadCount===0)      
+      {
+        clearInterval(interval);    
+        setClosingPrice(closingPrice);
+      }
+    }, 1000);    
+  }
+
 
   function down() {
     const one = numsLoc[0] + 1;
@@ -136,7 +205,9 @@ function App() {
       <button onClick={down}>숫자 아래로</button>
       <br />
       <br />
-      <button onClick={downLoad}>다운로드</button>
+      <button onClick={downLoadEntryPrice}>다운로드(매수)</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button onClick={downLoadClosingPrice}>다운로드(매도)</button>
       <br />
       <br />
       <div
@@ -178,7 +249,7 @@ function App() {
 
             }}
           >
-            {leverage} x
+            {leverage}X
           </div>
           <div
             style={{
@@ -273,4 +344,3 @@ function App() {
 }
 
 export default App;
-
