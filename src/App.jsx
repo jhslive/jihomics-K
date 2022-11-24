@@ -210,7 +210,13 @@ function App() {
          />
       </span>  
       <br />
+      <br />      
+      <button onClick={leverageup}>레버리지 업</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <button onClick={leveragedown}>레버리지 다운</button>
       <br />
+      <br />
+      <button onClick={up}>숫자 위로</button>
       <button onClick={up}>숫자 위로</button>    
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      <button onClick={leverageup}>레버리지 업</button> 
