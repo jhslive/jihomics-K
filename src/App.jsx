@@ -52,7 +52,7 @@ function App() {
     const interval = setInterval(() => {
       downloadCount--;
       
-      var entryPriceCount = (Number(entryPrice)+(downloadCount*0.5)).toFixed(1);
+      var entryPriceCount = (Number(entryPrice)+(downloadCount*0.2)).toFixed(1);
       var entryPriceFilename ;
       if(downloadCount===6)
       {
@@ -60,7 +60,7 @@ function App() {
       }
       else
       {
-        entryPriceFilename = (Number(entryPrice)+((downloadCount+1)*0.5)).toFixed(1);
+        entryPriceFilename = (Number(entryPrice)+((downloadCount+1)*0.2)).toFixed(1);
       }
       
       var name = "";
@@ -92,7 +92,7 @@ function App() {
     const interval = setInterval(() => {
       downloadCount--;
       
-      var closingPriceCount = (Number(closingPrice)+(downloadCount*0.5)).toFixed(1);
+      var closingPriceCount = (Number(closingPrice)+(downloadCount*0.2)).toFixed(1);
       var closingPriceFilename ;
       if(downloadCount===6)
       {
@@ -100,7 +100,7 @@ function App() {
       }
       else
       {
-        closingPriceFilename = (Number(closingPrice)+((downloadCount+1)*0.5)).toFixed(1);
+        closingPriceFilename = (Number(closingPrice)+((downloadCount+1)*0.2)).toFixed(1);
       }
 
       var name = "";
