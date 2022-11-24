@@ -9,12 +9,12 @@ import html2canvas from "html2canvas";
 
 function App() {
   const [coin, setCoin] = useState("BTCUSDT");
-  const [entryPrice, setEntryPrice] = useState("20868");
-  const [closingPrice, setClosingPrice] = useState("20681");
+  const [entryPrice, setEntryPrice] = useState("16700");
+  const [closingPrice, setClosingPrice] = useState("16750");
   const [isLong, setIsLong] = useState(true);
   const [numsLoc, setNumsLoc] = useState([227, 570, 570]);
   const [numLocLR, setNumLocLR] = useState(1000);
-  const [leverage, setLeverage] = useState("30.00");
+  const [leverage, setLeverage] = useState("50.00");
   const [date, setdate] = useState(new Date().toLocaleString('en-US', { hour12: false,}));
   const [result, setResult] = useState(
     ((closingPrice / entryPrice - 1) * 75 * 100).toFixed(2)
