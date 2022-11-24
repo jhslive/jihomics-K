@@ -9,12 +9,12 @@ import html2canvas from "html2canvas";
 
 function App() {
   const [coin, setCoin] = useState("BTCUSDT");
-  const [entryPrice, setEntryPrice] = useState("16700");
-  const [closingPrice, setClosingPrice] = useState("16750");
+  const [entryPrice, setEntryPrice] = useState("20868");
+  const [closingPrice, setClosingPrice] = useState("20681");
   const [isLong, setIsLong] = useState(true);
   const [numsLoc, setNumsLoc] = useState([227, 570, 570]);
   const [numLocLR, setNumLocLR] = useState(1000);
-  const [leverage, setLeverage] = useState("50.00");
+  const [leverage, setLeverage] = useState(30);
   const [date, setdate] = useState(new Date().toLocaleString('en-US', { hour12: false,}));
   const [result, setResult] = useState(
     ((closingPrice / entryPrice - 1) * 75 * 100).toFixed(2)
@@ -48,19 +48,19 @@ function App() {
   }
 
   function downLoadEntryPrice() {
-    downloadCount = 5;
+    downloadCount = 7;
     const interval = setInterval(() => {
       downloadCount--;
       
-      var entryPriceCount = (Number(entryPrice)+(downloadCount*0.2)).toFixed(1);
+      var entryPriceCount = (Number(entryPrice)+(downloadCount*0.5)).toFixed(1);
       var entryPriceFilename ;
-      if(downloadCount===4)
+      if(downloadCount===6)
       {
         entryPriceFilename = entryPrice       
       }
       else
       {
-        entryPriceFilename = (Number(entryPrice)+((downloadCount+1)*0.2)).toFixed(1);
+        entryPriceFilename = (Number(entryPrice)+((downloadCount+1)*0.5)).toFixed(1);
       }
       
       var name = "";
@@ -70,7 +70,9 @@ function App() {
            case 1: name = "최성준"; break;
            case 2: name = "최태원"; break;
            case 3: name = "김동욱"; break;
-           case 4: name = "강준식"; break;
+           case 4: name = "강준식"; break;           
+           case 5: name = "정한솔"; break;
+           case 6: name = "강문식"; break;
         }
       
       console.log("downloadCount = " + downloadCount);
@@ -86,19 +88,19 @@ function App() {
   }
 
   function downLoadClosingPrice() {
-    downloadCount = 5;
+    downloadCount = 7;
     const interval = setInterval(() => {
       downloadCount--;
       
-      var closingPriceCount = (Number(closingPrice)+(downloadCount*0.2)).toFixed(1);
+      var closingPriceCount = (Number(closingPrice)+(downloadCount*0.5)).toFixed(1);
       var closingPriceFilename ;
-      if(downloadCount===4)
+      if(downloadCount===6)
       {
         closingPriceFilename = closingPrice       
       }
       else
       {
-        closingPriceFilename = (Number(closingPrice)+((downloadCount+1)*0.2)).toFixed(1);
+        closingPriceFilename = (Number(closingPrice)+((downloadCount+1)*0.5)).toFixed(1);
       }
 
       var name = "";
@@ -109,6 +111,8 @@ function App() {
            case 2: name = "최태원"; break;
            case 3: name = "김동욱"; break;
            case 4: name = "강준식"; break;
+           case 5: name = "정한솔"; break;
+           case 6: name = "강문식"; break;
         }
       
       console.log("downloadCount = " + downloadCount);
@@ -142,7 +146,13 @@ function App() {
   function right() {
     setNumLocLR(numLocLR + 1);
   }
-
+  
+  function leverageup() {
+    setLeverage(leverage + 20.00);
+  }
+    function leveragedown() {
+    setLeverage(leverage - 20.00);
+  }
 
   const onSaveAs = (uri, filename) => {
     var link = document.createElement("a");
@@ -201,7 +211,9 @@ function App() {
       </span>  
       <br />
       <br />
-      <button onClick={up}>숫자 위로</button>
+      <button onClick={up}>숫자 위로</button>    
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <button onClick={leverageup}>레버리지 업</button> 
       <br />
       <br />
       <button onClick={left}>숫자 좌로</button>
@@ -210,6 +222,8 @@ function App() {
       <br />
       <br />
       <button onClick={down}>숫자 아래로</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button onClick={leveragedown}>레버리지 다운</button>
       <br />
       <br />
       <button onClick={downLoadEntryPrice}>다운로드(매수)</button>
@@ -256,7 +270,7 @@ function App() {
 
             }}
           >
-            {leverage}X
+            {leverage.toFixed(2)}X
           </div>
           <div
             style={{
