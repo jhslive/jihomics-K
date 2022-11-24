@@ -9,12 +9,12 @@ import html2canvas from "html2canvas";
 
 function App() {
   const [coin, setCoin] = useState("BTCUSDT");
-  const [entryPrice, setEntryPrice] = useState("16700");
-  const [closingPrice, setClosingPrice] = useState("16750");
+  const [entryPrice, setEntryPrice] = useState("20868");
+  const [closingPrice, setClosingPrice] = useState("20681");
   const [isLong, setIsLong] = useState(true);
   const [numsLoc, setNumsLoc] = useState([227, 570, 570]);
   const [numLocLR, setNumLocLR] = useState(1000);
-  const [leverage, setLeverage] = useState("50.00");
+  const [leverage, setLeverage] = useState("30.00");
   const [date, setdate] = useState(new Date().toLocaleString('en-US', { hour12: false,}));
   const [result, setResult] = useState(
     ((closingPrice / entryPrice - 1) * 75 * 100).toFixed(2)
@@ -48,29 +48,31 @@ function App() {
   }
 
   function downLoadEntryPrice() {
-    downloadCount = 7;
+    downloadCount = 5;
     const interval = setInterval(() => {
       downloadCount--;
       
-      var entryPriceCount = (Number(entryPrice)+(downloadCount*0.2)).toFixed(1);
+      var entryPriceCount = (Number(entryPrice)+(downloadCount*0.5)).toFixed(1);
       var entryPriceFilename ;
-      if(downloadCount===6)
+      if(downloadCount===4)
       {
         entryPriceFilename = entryPrice       
       }
       else
       {
-        entryPriceFilename = (Number(entryPrice)+((downloadCount+1)*0.2)).toFixed(1);
+        entryPriceFilename = (Number(entryPrice)+((downloadCount+1)*0.5)).toFixed(1);
       }
-
-      const name =
-          (isLong ? "Long-" : "Short-") +
-          coin +
-          "-" +
-          entryPriceFilename +
-          "-" +
-          closingPrice;
-
+      
+      var name = "";
+         switch(downloadCount)
+        {
+           case 0: name = "정지호"; break;
+           case 1: name = "최성준"; break;
+           case 2: name = "최태원"; break;
+           case 3: name = "김동욱"; break;
+           case 4: name = "강준식"; break;
+        }
+      
       console.log("downloadCount = " + downloadCount);
       imageDownload(name);
       setEntryPrice(entryPriceCount);
@@ -84,29 +86,31 @@ function App() {
   }
 
   function downLoadClosingPrice() {
-    downloadCount = 7;
+    downloadCount = 5;
     const interval = setInterval(() => {
       downloadCount--;
       
-      var closingPriceCount = (Number(closingPrice)+(downloadCount*0.2)).toFixed(1);
+      var closingPriceCount = (Number(closingPrice)+(downloadCount*0.5)).toFixed(1);
       var closingPriceFilename ;
-      if(downloadCount===6)
+      if(downloadCount===4)
       {
         closingPriceFilename = closingPrice       
       }
       else
       {
-        closingPriceFilename = (Number(closingPrice)+((downloadCount+1)*0.2)).toFixed(1);
+        closingPriceFilename = (Number(closingPrice)+((downloadCount+1)*0.5)).toFixed(1);
       }
 
-      const name =
-          (isLong ? "Long-" : "Short-") +
-          coin +
-          "-" +
-          entryPrice +
-          "-" +
-          closingPriceFilename;
-
+      var name = "";
+         switch(downloadCount)
+        {
+           case 0: name = "정지호"; break;
+           case 1: name = "최성준"; break;
+           case 2: name = "최태원"; break;
+           case 3: name = "김동욱"; break;
+           case 4: name = "강준식"; break;
+        }
+      
       console.log("downloadCount = " + downloadCount);
       imageDownload(name);
       setClosingPrice(closingPriceCount);
